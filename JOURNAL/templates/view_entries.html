@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Your Journal Entries</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(to right, #e0c3fc, #8ec5fc);
+      min-height: 100vh;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: transparent;
+      padding: 12px 20px 0;
+      height: 100px;
+      transition: background-color 0.4s ease, height 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    header.scrolled {
+      background-color: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      height: 70px;
+    }
+
+    .home-link {
+      font-weight: bold;
+      text-decoration: none;
+      color: #333;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      padding: 5px 10px;
+    }
+
+    .home-link:hover {
+      color: #6c63ff;
+    }
+
+    .page-title {
+      flex: 1;
+      text-align: center;
+      font-size: 2.5rem;
+      color: #333;
+      transition: font-size 0.4s ease, transform 0.4s ease;
+    }
+
+    header.scrolled .page-title {
+      font-size: 1.6rem;
+      transform: translateY(-10px);
+    }
+
+    .entries {
+      max-width: 800px;
+      margin: 140px auto 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: 0 20px 40px;
+    }
+
+    .entry {
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .accent {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 8px;
+      border-top-left-radius: 15px;
+      border-bottom-left-radius: 15px;
+    }
+
+    .happy { background-color: #FFD700; }
+    .sad { background-color: #5DADE2; }
+    .angry { background-color: #E74C3C; }
+    .calm { background-color: #58D68D; }
+    .excited { background-color: #BA55D3; }
+
+    .entry-content {
+      flex-grow: 1;
+      padding-left: 16px;
+    }
+
+    .entry h3 {
+      margin: 0 0 10px;
+      color: #444;
+    }
+
+    .entry .mood {
+      font-weight: bold;
+      font-size: 1rem;
+      color: #666;
+    }
+
+    .entry .content {
+      margin-top: 10px;
+      line-height: 1.6;
+      color: #555;
+      white-space: pre-wrap;
+    }
+
+    .delete-btn {
+      background: none;
+      border: none;
+      font-size: 1.3rem;
+      cursor: pointer;
+      color: #999;
+      transition: color 0.2s ease;
+      margin-left: 20px;
+    }
+
+    .trash-icon {
+      width: 24px;
+      height: 24px;
+      filter: grayscale(100%) brightness(0.6);
+      transition: filter 0.2s ease;
+    }
+
+    .delete-btn:hover .trash-icon {
+      filter: grayscale(0%) brightness(1);
+    }
+  </style>
+</head>
+<body>
+
+  <header id="header">
+    <a href="/" class="home-link">Home</a>
+    <div class="page-title" id="page-title">Your Journal Entries</div>
+    <div style="width: 60px;"></div>
+  </header>
+
+  <div class="entries">
+    {% for entry in entries %}
+    <div class="entry">
+      <div class="accent 
+        {% if entry.mood.lower() == 'happy' %}happy
+        {% elif entry.mood.lower() == 'sad' %}sad
+        {% elif entry.mood.lower() == 'angry' %}angry
+        {% elif entry.mood.lower() == 'calm' %}calm
+        {% elif entry.mood.lower() == 'excited' %}excited
+        {% endif %}"></div>
+      <div class="entry-content">
+        <h3>{{ entry.date }}</h3>
+        <div class="mood">Mood: {{ entry.mood }}</div>
+        <div class="content">{{ entry.content }}</div>
+      </div>
+      <form method="GET" action="/delete/{{ total_entries - loop.index0 - 1 }}">
+        <button type="submit" class="delete-btn" title="Delete Entry">
+          <img src="{{ url_for('static', filename='trash.png') }}" alt="Delete" class="trash-icon">
+        </button>
+      </form>
+    </div>
+    {% endfor %}
+  </div>
+
+  <script>
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Add New Entry</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Nunito', sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: background 0.6s ease-in-out;
+      background: linear-gradient(270deg, #fdfcfb, #e2d1c3);
+      background-size: 400% 400%;
+      animation: gradientShift 12s ease infinite;
+    }
+
+    .form-container {
+      background-color: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 500px;
+      transition: transform 0.3s ease;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-top: 5px;
+      font-size: 1rem;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      border: none;
+      background-color: #6c63ff;
+      color: white;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #574b90;
+    }
+
+    .happy {
+      background: linear-gradient(270deg, #fceabb, #f8b520);
+      background-size: 400% 400%;
+      animation: gradientShift 12s ease infinite;
+    }
+
+    .sad {
+      background: linear-gradient(270deg, #a1c4fd, #c2e9fb);
+      background-size: 400% 400%;
+      animation: gradientShift 12s ease infinite;
+    }
+
+    .excited {
+      background: linear-gradient(270deg, #fbc2eb, #a6c1ee);
+      background-size: 400% 400%;
+      animation: gradientShift 12s ease infinite;
+    }
+
+    .angry {
+      background: linear-gradient(270deg, #E52B50, #FFDAB9, #E34234);
+      background-size: 400% 400%;
+      animation: gradientShift 12s ease infinite;
+    }
+
+    .calm {
+      background: linear-gradient(270deg, #d0f0c0, #a8edea);
+      background-size: 400% 400%;
+      animation: gradientShift 12s ease infinite;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .form-container.jump {
+      animation: bounce 0.4s ease;
+    }
+
+    @keyframes bounce {
+      0%   { transform: translateY(0); }
+      50%  { transform: translateY(-12px); }
+      100% { transform: translateY(0); }
+    }
+
+    .home-link {
+      position: absolute;
+      top: 20px;
+      left: 30px;
+      color: #333;
+      font-weight: bold;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+
+    .home-link:hover {
+      color: #6c63ff;
+    }
+  </style>
+</head>
+<body>
+  <a href="/" class="home-link">Home</a>
+
+  <div class="form-container" id="formBox">
+    <h1>New Journal Entry</h1>
+    <form action="/add" method="POST">
+      <label for="date">Date:</label>
+      <input type="date" name="date" required />
+
+      <label for="mood">Mood:</label>
+      <select name="mood" id="mood" required onchange="handleMoodChange()">
+        <option value="">--Select--</option>
+        <option value="happy">Happy 😊</option>
+        <option value="sad">Sad 😢</option>
+        <option value="excited">Excited 🤩</option>
+        <option value="angry">Angry 😡</option>
+        <option value="calm">Calm 😌</option>
+      </select>
+
+      <label for="content">Your Thoughts:</label>
+      <textarea name="content" rows="6" placeholder="Write your thoughts here..." required></textarea>
+
+      <button type="submit">Save Entry</button>
+    </form>
+  </div>
+
+  <script>
+    function handleMoodChange() {
+      const mood = document.getElementById('mood').value;
+      const body = document.body;
+      const box = document.getElementById('formBox');
+
+      body.className = '';
+
+      if (mood) {
+        body.classList.add(mood);
+
+        box.classList.remove('jump');
+        void box.offsetWidth; // Force reflow to restart the animation
+        box.classList.add('jump');
+      }
+    }
+  </script>
+</body>
+</html>

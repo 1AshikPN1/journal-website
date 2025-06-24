@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Daily Journal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Nunito', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            animation: backgroundShift 30s ease-in-out infinite;
+            background: linear-gradient(-45deg, #ffecd2, #fcb69f, #ffd1ff, #fbd3e9);
+            background-size: 400% 400%;
+            transition: all 0.3s ease-in-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes backgroundShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .feeling-question {
+            font-family: 'Pacifico', cursive;
+            font-size: 4rem;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feeling-question::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.5), transparent 70%);
+            border-radius: 50%;
+            animation: pulseGlow 6s ease-in-out infinite;
+            z-index: -1;
+            filter: blur(40px);
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.5;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.1);
+                opacity: 0.8;
+            }
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 15px 30px;
+            font-size: 1rem;
+            border-radius: 30px;
+            background-color: #ffffff;
+            color: #333;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            background-color: #fcb69f;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="feeling-question">How do you feel today?</div>
+    <h1>My Daily Journal</h1>
+    <p>Capture your thoughts. Reflect your day. Feel the emotion.</p>
+
+    <div class="btn-container">
+        <a href="/add" class="btn">Add New Entry</a>
+        <a href="/view" class="btn">View Entries</a>
+    </div>
+</body>
+</html>
