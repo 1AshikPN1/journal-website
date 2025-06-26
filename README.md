@@ -62,6 +62,11 @@ I'm passionate about backend development and excited to grow further by contribu
 
 ---
 
+## 📄 License
+This project is licensed under the GNU GPL v3.0 License.  
+You may view the full license [here](https://www.gnu.org/licenses/gpl-3.0.en.html).
+
+
 ## 🔗 Source Code
 
 [GitHub Repository](https://github.com/your-username/journal-website)
