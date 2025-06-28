@@ -34,7 +34,6 @@ This is a simple personal journal website that allows users to log and reflect o
 * Add authentication (login/logout)
 * Implement input validation and error handling
 * Work with a frontend developer to enhance UI integration
-* Deploy using a full-stack platform (e.g., Render or Replit)
 
 ---
 
